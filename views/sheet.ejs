@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+</head>
+
+<body>
+    <h2><%= name %></h2>
+
+    <h3>Problems in this sheet:</h3>
+    <table id="problem-table">
+        <tr>
+            <th>Problem Name</th>
+            <th>Link</th>
+            <th>Tags</th>
+        </tr>
+
+        <% problems.forEach(problem => { %>
+            <tr>
+                <td><%= problem.name %></td>
+                <td>
+                    <a href="<%= problem.link %>">
+                        <%= problem.link %>
+                    </a>
+                </td>
+                <td><%= problem.tags.join(', ') %></td>
+            </tr>
+        <% }) %>
+    </table>
+
+    <h4>Add more problems</h4>
+
+    <input 
+        type="text" 
+        name="problem-link" 
+        id="problem-link" 
+        placeholder="Enter problem link" 
+        required 
+    />
+
+    <input 
+        type="text" 
+        name="problem-name" 
+        id="problem-name" 
+        placeholder="Enter problem name" 
+    />
+
+    <input 
+        type="text" 
+        name="problem-tags" 
+        id="problem-tags" 
+        placeholder="Enter problem tags (comma separated)" 
+    />
+
+    <button type="submit" id="submit-btn">Add Problem</button>
+
+    <script>
+        document
+            .getElementById("submit-btn")
+            .addEventListener("click", function (event) {
+                event.preventDefault();
+
+                const link = document.getElementById("problem-link").value;
+                const name = document.getElementById("problem-name").value;
+                const tags = document
+                    .getElementById("problem-tags")
+                    .value
+                    .split(",")
+                    .map(tag => tag.trim());
+
+                document.getElementById("problem-table").innerHTML += `
+                    <tr>
+                        <td>${name}</td>
+                        <td><a href="${link}">${link}</a></td>
+                        <td>${tags.join(", ")}</td>
+                    </tr>
+                `;
+            });
+    </script>
+</body>
+</html>
