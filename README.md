@@ -48,10 +48,10 @@ CP Sheet is a small Express + EJS app for tracking competitive programming probl
 .
 ├── index.js
 ├── package.json
-└── public/
-	 └── views/
-		  ├── index.ejs
-		  └── sheet.ejs
+├── public/
+└── views/
+	├── index.ejs
+	└── sheet.ejs
 ```
 
 ## Scripts

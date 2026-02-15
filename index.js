@@ -14,10 +14,12 @@ app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
+// Home route
 app.get("/", (req, res) => {
     res.render("index");
 });
 
+// Sheet route
 app.get("/sheet", (req, res) => {
     res.render("sheet", {
         name: "My CP Sheet", title: "My CP Sheet", problems: [
