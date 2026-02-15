@@ -3,6 +3,7 @@ require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
 // importing dependencies
+const path = require("path");
 const express = require("express");
 const ejs = require("ejs");
 
@@ -10,9 +11,9 @@ const ejs = require("ejs");
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "..", "public")));
 app.set("view engine", "ejs");
-app.set("views", "./views");
+app.set("views", path.join(__dirname, "views"));
 
 // Home route
 app.get("/", (req, res) => {
