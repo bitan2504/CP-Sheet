@@ -1,60 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= title %></title>
+    <title>
+        <%= title %>
+    </title>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
-    <h2><%= name %></h2>
+    <div class="container">
+        <header>
+            <h2>
+                <%= name %>
+            </h2>
+        </header>
 
-    <h3>Problems in this sheet:</h3>
-    <table id="problem-table">
-        <tr>
-            <th>Problem Name</th>
-            <th>Link</th>
-            <th>Tags</th>
-        </tr>
+        <h3>Problems in this sheet:</h3>
+        <table id="problem-table">
+            <thead>
+                <tr>
+                    <th>Problem Name</th>
+                    <th>Link</th>
+                    <th>Tags</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% problems.forEach(problem=> { %>
+                    <tr>
+                        <td>
+                            <%= problem.name %>
+                        </td>
+                        <td>
+                            <a href="<%= problem.link %>" target="_blank">
+                                <%= problem.link %>
+                            </a>
+                        </td>
+                        <td>
+                            <%= problem.tags.join(', ') %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
 
-        <% problems.forEach(problem => { %>
-            <tr>
-                <td><%= problem.name %></td>
-                <td>
-                    <a href="<%= problem.link %>">
-                        <%= problem.link %>
-                    </a>
-                </td>
-                <td><%= problem.tags.join(', ') %></td>
-            </tr>
-        <% }) %>
-    </table>
+        <h4>Add more problems</h4>
 
-    <h4>Add more problems</h4>
-
-    <input 
-        type="text" 
-        name="problem-link" 
-        id="problem-link" 
-        placeholder="Enter problem link" 
-        required 
-    />
-
-    <input 
-        type="text" 
-        name="problem-name" 
-        id="problem-name" 
-        placeholder="Enter problem name" 
-    />
-
-    <input 
-        type="text" 
-        name="problem-tags" 
-        id="problem-tags" 
-        placeholder="Enter problem tags (comma separated)" 
-    />
-
-    <button type="submit" id="submit-btn">Add Problem</button>
+        <div class="form-container">
+            <input 
+                type="text" 
+                name="problem-link" 
+                id="problem-link" 
+                placeholder="Enter problem link" 
+                required 
+            />
+        
+            <input 
+                type="text" 
+                name="problem-name" 
+                id="problem-name" 
+                placeholder="Enter problem name" 
+            />
+        
+            <input 
+                type="text" 
+                name="problem-tags" 
+                id="problem-tags" 
+                placeholder="Enter problem tags (comma separated)" 
+            />
+        
+            <button type="submit" id="submit-btn">Add Problem</button>
+        </div>
+    </div>
 
     <script>
         document
@@ -64,20 +82,33 @@
 
                 const link = document.getElementById("problem-link").value;
                 const name = document.getElementById("problem-name").value;
-                const tags = document
-                    .getElementById("problem-tags")
-                    .value
-                    .split(",")
-                    .map(tag => tag.trim());
+                const tagsRaw = document.getElementById("problem-tags").value;
 
-                document.getElementById("problem-table").innerHTML += `
+                const tags = tagsRaw ? tagsRaw.split(",").map(tag => tag.trim()) : [];
+
+                if (!link || !name) {
+                    alert("Please fill in the problem name and link.");
+                    return;
+                }
+
+                // Add to table temporarily
+                const tableBody = document.querySelector("#problem-table tbody");
+                if (tableBody) {
+                    tableBody.innerHTML += `
                     <tr>
                         <td>${name}</td>
-                        <td><a href="${link}">${link}</a></td>
+                        <td><a href="${link}" target="_blank">${link}</a></td>
                         <td>${tags.join(", ")}</td>
                     </tr>
-                `;
+                    `;
+                }
+
+                // Clear inputs
+                document.getElementById("problem-link").value = "";
+                document.getElementById("problem-name").value = "";
+                document.getElementById("problem-tags").value = "";
             });
     </script>
 </body>
+
 </html>
