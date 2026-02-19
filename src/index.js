@@ -3,6 +3,7 @@ require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 
 // importing dependencies
+
 const path = require("path");
 const express = require("express");
 const ejs = require("ejs");
@@ -23,21 +24,10 @@ app.get("/", (req, res) => {
 // Sheet route
 app.get("/sheet", (req, res) => {
     res.render("sheet", {
-        name: "My CP Sheet", title: "My CP Sheet", problems: [
-            {
-                link: "https://codeforces.com/problemset/problem/1/A",
-                name: "Theatre Square",
-                tags: ["implementation", "math"]
-            },
-            {
-                link: "https://leetcode.com/problems/two-sum/",
-                name: "Two Sum",
-                tags: ["array", "hashmap"]
-            }
-        ]
+        name: "My CP Sheet",
+        title: "My CP Sheet"
     });
 });
-
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
