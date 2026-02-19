@@ -28,87 +28,25 @@
                 </tr>
             </thead>
             <tbody>
-                <% problems.forEach(problem=> { %>
-                    <tr>
-                        <td>
-                            <%= problem.name %>
-                        </td>
-                        <td>
-                            <a href="<%= problem.link %>" target="_blank">
-                                <%= problem.link %>
-                            </a>
-                        </td>
-                        <td>
-                            <%= problem.tags.join(', ') %></td>
-                    </tr>
-                <% }) %>
+                <!-- Problems will be loaded here dynamically -->
             </tbody>
         </table>
 
         <h4>Add more problems</h4>
 
         <div class="form-container">
-            <input 
-                type="text" 
-                name="problem-link" 
-                id="problem-link" 
-                placeholder="Enter problem link" 
-                required 
-            />
-        
-            <input 
-                type="text" 
-                name="problem-name" 
-                id="problem-name" 
-                placeholder="Enter problem name" 
-            />
-        
-            <input 
-                type="text" 
-                name="problem-tags" 
-                id="problem-tags" 
-                placeholder="Enter problem tags (comma separated)" 
-            />
-        
-            <button type="submit" id="submit-btn">Add Problem</button>
+            <input type="text" name="problem-link" id="problem-link" placeholder="Enter problem link" required />
+
+            <input type="text" name="problem-name" id="problem-name" placeholder="Enter problem name" />
+
+            <input type="text" name="problem-tags" id="problem-tags"
+                placeholder="Enter problem tags (comma separated)" />
+
+            <button type="submit" id="submit-btn" class="btn">Add Problem</button>
         </div>
     </div>
 
-    <script>
-        document
-            .getElementById("submit-btn")
-            .addEventListener("click", function (event) {
-                event.preventDefault();
-
-                const link = document.getElementById("problem-link").value;
-                const name = document.getElementById("problem-name").value;
-                const tagsRaw = document.getElementById("problem-tags").value;
-
-                const tags = tagsRaw ? tagsRaw.split(",").map(tag => tag.trim()) : [];
-
-                if (!link || !name) {
-                    alert("Please fill in the problem name and link.");
-                    return;
-                }
-
-                // Add to table temporarily
-                const tableBody = document.querySelector("#problem-table tbody");
-                if (tableBody) {
-                    tableBody.innerHTML += `
-                    <tr>
-                        <td>${name}</td>
-                        <td><a href="${link}" target="_blank">${link}</a></td>
-                        <td>${tags.join(", ")}</td>
-                    </tr>
-                    `;
-                }
-
-                // Clear inputs
-                document.getElementById("problem-link").value = "";
-                document.getElementById("problem-name").value = "";
-                document.getElementById("problem-tags").value = "";
-            });
-    </script>
+    <script src="/js/script.js"></script>
 </body>
 
 </html>
