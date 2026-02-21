@@ -1,66 +1,81 @@
-
 # CP Sheet
 
-CP Sheet is a small Express + EJS app for tracking competitive programming problems. It renders a home page and a sample sheet with problem links and tags.
+CP Sheet is a competitive programming tracking application built with Express and EJS. It features user authentication, progress tracking, and sheet management.
 
 ## Features
 
-- Server-rendered pages with EJS
-- Simple routes for a home page and a sample sheet
-- Static assets served from `public`
+- **User Authentication**: Secure Signup and Login with JWT (Access & Refresh Tokens).
+- **Session Management**: HttpOnly cookies for secure token storage.
+- **Dynamic Views**: Server-rendered pages using EJS.
+- **Global Error Handling**: Standardized JSON error responses.
+- **Responsive UI**: Glassmorphism design with mobile support.
 
-## Tech stack
+## Tech Stack
 
-- Node.js
-- Express
-- EJS
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB, Mongoose
+- **Templating**: EJS
+- **Authentication**: JWT (jsonwebtoken), bcrypt, cookie-parser
 
-## Getting started
+## Getting Started
 
-1. Install dependencies:
+1.  **Install dependencies**:
+    ```bash
+    npm install
+    ```
 
-	```bash
-	npm install
-	```
+2.  **Set up Environment Variables**:
+    Create a `.env` file in the root directory with the following:
+    ```env
+    PORT=3000
+    MONGODB_URI=your_mongodb_connection_string
+    ACCESS_TOKEN_SECRET=your_access_token_secret
+    ACCESS_TOKEN_EXPIRY=1d
+    REFRESH_TOKEN_SECRET=your_refresh_token_secret
+    REFRESH_TOKEN_EXPIRY=10d
+    ```
 
-2. Start the dev server:
+	or, Directly copy the `.env.example` file content.
 
-	```bash
-	npm run dev
-	```
+3.  **Start the server**:
+    ```bash
+    npm run dev
+    ```
 
-3. Open the app:
-
-	- http://localhost:3000
-
-## Environment variables
-
-- `PORT` (optional): port for the server to listen on. Defaults to `3000`.
+4.  **Open the app**:
+    - [http://localhost:3000](http://localhost:3000)
 
 ## Routes
 
-- `/` renders the home page.
-- `/sheet` renders a sample sheet with a list of problems and tags.
+### Pages
+- `/` - Home Page (Login/Signup/Logout buttons based on auth state)
+- `/login` - User Login Page
+- `/signup` - User Registration Page
+- `/sheet` - CP Sheet Page (Protected)
 
-## Project structure
+### APIs (`/api/v1/users`)
+- `POST /register` - Register a new user
+- `POST /login` - Login user
+- `POST /logout` - Logout user
+- `POST /refresh-token` - Refresh access token
+- `POST /change-password` - Change current password
+- `PATCH /update-account` - Update account details
+- `GET /current-user` - Get current user details
+
+## Project Structure
 
 ```
 .
-├── package.json
-├── public/
-└── src/
-	├── index.js
-	└── views/
-		├── index.ejs
-		└── sheet.ejs
+├── public/              # Static assets (css, images)
+├── src/
+│   ├── app.js           # Express app configuration
+│   ├── index.js         # Entry point
+│   ├── db/              # Database connection
+│   ├── models/          # Mongoose models (User, etc.)
+│   ├── controllers/     # Route controllers
+│   ├── routes/          # API routes
+│   ├── middlewares/     # Auth and Error middlewares
+│   ├── utils/           # Utility classes (ApiError, ApiResponse)
+│   └── views/           # EJS templates
+└── .env                 # Environment variables
 ```
-
-## Public assets
-
-- index.html - Main HTML entry point (optional if rendering server-side)
-- favicon.ico - Browser tab icon
-- *.css - Any regular CSS file (optional)
-
-## Scripts
-
-- `npm run dev` starts the app with nodemon.
