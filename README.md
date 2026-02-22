@@ -54,13 +54,24 @@ CP Sheet is a competitive programming tracking application built with Express an
 - `/sheet` - CP Sheet Page (Protected)
 
 ### APIs (`/api/v1/users`)
-- `POST /register` - Register a new user
-- `POST /login` - Login user
-- `POST /logout` - Logout user
-- `POST /refresh-token` - Refresh access token
-- `POST /change-password` - Change current password
-- `PATCH /update-account` - Update account details
-- `GET /current-user` - Get current user details
+
+The following controllers handle user authentication and profile management:
+
+- `POST /register`
+  - **Description**: Register a new user
+  - **Controller**: `registerUser`
+- `POST /login`
+  - **Description**: Login an existing user
+  - **Controller**: `loginUser`
+- `POST /logout`
+  - **Description**: Logout user and clear cookies
+  - **Controller**: `logoutUser`
+- `POST /change-password`
+  - **Description**: Change current user password
+  - **Controller**: `changeCurrentPassword`
+- `PATCH /update-account`
+  - **Description**: Update user account details like full name and email
+  - **Controller**: `updateAccountDetails`
 
 ## Project Structure
 
