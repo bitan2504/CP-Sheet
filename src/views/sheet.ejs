@@ -1,52 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-        <%= title %>
-    </title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <header>
-            <h2>
-                <%= name %>
-            </h2>
-        </header>
+      <header>
+        <h2><%= name %></h2>
+      </header>
 
-        <h3>Problems in this sheet:</h3>
-        <table id="problem-table">
-            <thead>
-                <tr>
-                    <th>Problem Name</th>
-                    <th>Link</th>
-                    <th>Tags</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Problems will be loaded here dynamically -->
-            </tbody>
-        </table>
+      <h3>Problems in this sheet:</h3>
+      <table id="problem-table">
+        <thead>
+          <tr>
+            <th>Problem Name</th>
+            <th>Link</th>
+            <th>Tags</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Problems will be loaded here dynamically -->
+        </tbody>
+      </table>
 
-        <h4>Add more problems</h4>
+      <h4>Add more problems</h4>
 
-        <div class="form-container">
-            <input type="text" name="problem-link" id="problem-link" placeholder="Enter problem link" required />
+      <div class="form-container">
+        <input
+          type="text"
+          name="problem-name"
+          id="problem-name"
+          placeholder="Enter problem name"
+        />
+        <input
+          type="text"
+          name="problem-link"
+          id="problem-link"
+          placeholder="Enter problem link"
+          required
+        />
+        <input
+          type="text"
+          name="problem-tags"
+          id="problem-tags"
+          placeholder="Enter problem tags (comma separated)"
+        />
 
-            <input type="text" name="problem-name" id="problem-name" placeholder="Enter problem name" />
-
-            <input type="text" name="problem-tags" id="problem-tags"
-                placeholder="Enter problem tags (comma separated)" />
-
-            <button type="submit" id="submit-btn" class="btn">Add Problem</button>
-        </div>
+        <button type="submit" id="submit-btn" class="btn">Add Problem</button>
+      </div>
     </div>
 
     <script src="/js/script.js"></script>
-</body>
-
+  </body>
 </html>
