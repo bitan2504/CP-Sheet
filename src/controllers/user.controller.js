@@ -21,6 +21,10 @@ const generateAccessAndAccessTokens = async (userId) => {
     }
 };
 
+/**
+description - Register a new user
+route - POST /api/v1/users/register
+*/
 const registerUser = asyncHandler(async (req, res) => {
     const { fullName, email, username, password } = req.body;
 
@@ -60,6 +64,10 @@ const registerUser = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, createdUser, "User registered Successfully"));
 });
 
+/**
+description - Login an existing user
+route - POST /api/v1/users/login
+*/
 const loginUser = asyncHandler(async (req, res) => {
     const { username, password } = req.body;
 
@@ -111,6 +119,10 @@ const loginUser = asyncHandler(async (req, res) => {
         );
 });
 
+/**
+description - Logout user and clear cookies
+route - POST /api/v1/users/logout
+*/
 const logoutUser = asyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(
         req.user._id,
@@ -136,6 +148,10 @@ const logoutUser = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, {}, "User logged Out"));
 });
 
+/**
+description - Change current user password
+route - POST /api/v1/users/change-password
+*/
 const changeCurrentPassword = asyncHandler(async (req, res) => {
     const { oldPassword, newPassword } = req.body;
 
@@ -154,6 +170,10 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, {}, "Password changed successfully"));
 });
 
+/**
+description - Update user account details like full name and email
+route - PATCH /api/v1/users/update-account
+*/
 const updateAccountDetails = asyncHandler(async (req, res) => {
     const { fullName, email } = req.body;
 
