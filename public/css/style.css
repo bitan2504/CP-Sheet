@@ -108,8 +108,6 @@ table {
     border-radius: 4px;
     overflow: hidden;
     box-shadow: 0 0 15px rgba(0, 230, 118, 0.1);
-    table-layout: fixed;
-    /* Ensures column widths are respected */
 }
 
 th,
@@ -165,6 +163,12 @@ tr:hover {
 
 td {
     color: #e0e0e0;
+    word-break: break-all;
+    white-space: wrap;
+}
+
+.action-tab{
+    white-space: nowrap;
 }
 
 a {
@@ -265,6 +269,16 @@ button:hover {
 
 button:active {
     transform: translateY(1px);
+}
+
+.action-btn{
+    padding: 5px 10px;
+    border: none;
+    background-color: transparent;
+}
+
+.delete-btn{
+    color: #ff3333;
 }
 
 .error-message {

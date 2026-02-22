@@ -57,6 +57,8 @@ const errorMiddleware = require("./middlewares/error.middleware");
 
 // APIs
 app.use("/api/v1/users", userRoutes);
+const problemRoutes = require("./routes/problem.routes");
+app.use("/api/v1/problems", problemRoutes);
 
 // Error Handling Middleware
 app.use(errorMiddleware);
