@@ -167,7 +167,7 @@ td {
     white-space: wrap;
 }
 
-.action-tab{
+.action-tab {
     white-space: nowrap;
 }
 
@@ -271,13 +271,70 @@ button:active {
     transform: translateY(1px);
 }
 
-.action-btn{
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 24px;
+    background-color: transparent;
+    color: #4285F4;
+    border: 2px solid #4285F4;
+    border-radius: 4px;
+    font-family: 'Fira Code', monospace;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    margin-top: 15px;
+}
+
+.google-btn:hover {
+    background-color: #4285F4;
+    color: #000;
+    box-shadow: 0 0 15px rgba(66, 133, 244, 0.4);
+}
+
+.google-btn:active {
+    transform: translateY(1px);
+}
+
+.auth-separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #666;
+    margin: 20px 0;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+}
+
+.auth-separator::before,
+.auth-separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.auth-separator:not(:empty)::before {
+    margin-right: .25em;
+}
+
+.auth-separator:not(:empty)::after {
+    margin-left: .25em;
+}
+
+.action-btn {
     padding: 5px 10px;
     border: none;
     background-color: transparent;
 }
 
-.delete-btn{
+.delete-btn {
     color: #ff3333;
 }
 
