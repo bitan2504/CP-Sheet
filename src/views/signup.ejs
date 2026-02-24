@@ -19,23 +19,23 @@
         </p>
       </header>
 
-      <div class="form-container" style="flex-direction: column; max-width: 450px; margin: 0 auto; width: 100%;">
-        <div id="errorMessage" class="error-message"></div>
-        <form id="signupForm" style="width: 100%; display: flex; flex-direction: column; gap: 20px;">
-          <div class="form-group">
-            <input type="text" name="fullName" placeholder="Full Name" required autocomplete="name">
-          </div>
-          <div class="form-group">
-            <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
-          </div>
-          <div class="form-group">
-            <input type="text" name="username" placeholder="Username (unique)" required autocomplete="username">
-          </div>
-          <div class="form-group password-group">
-            <input type="password" id="password" name="password" placeholder="Password (min 6 chars)" required
-              autocomplete="new-password" />
-            <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
-          </div>
+    <div class="form-container" style="flex-direction: column; max-width: 450px; margin: 0 auto; width: 100%;">
+      <div id="errorMessage" class="error-message"></div>
+      <form id="signupForm" style="width: 100%; display: flex; flex-direction: column; gap: 20px;">
+        <div class="form-group">
+          <input type="text" name="fullName" placeholder="Full Name" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <input type="text" name="username" placeholder="Username (unique)" required autocomplete="username">
+        </div>
+        <div class="form-group password-group">
+          <input type="password" id="password" name="password" placeholder="Password (min 6 chars)" required
+            autocomplete="new-password" />
+          <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
+        </div>
 
           <button type="submit" id="submitBtn" style="width: 100%; margin-top: 10px">
             Sign Up
@@ -55,66 +55,66 @@
     <div style="margin-top: 40px;">
       <a href="/" class="auth-link" style="color: #666; font-size: 0.9rem;">&larr; Back to Home</a>
     </div>
-    </div>
-    <script src="/js/script.js"></script>
-    <script>
-      const form = document.getElementById('signupForm');
-      const submitBtn = document.getElementById('submitBtn');
-      const errorMessage = document.getElementById('errorMessage');
+  </div>
 
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
+  <script>
+    const form = document.getElementById('signupForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorMessage = document.getElementById('errorMessage');
 
-        // Disable button
-        submitBtn.disabled = true;
-        submitBtn.innerText = 'Creating Account...';
-        submitBtn.style.opacity = '0.7';
-        errorMessage.style.display = 'none';
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
+      // Disable button
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Creating Account...';
+      submitBtn.style.opacity = '0.7';
+      errorMessage.style.display = 'none';
 
-        try {
-          const response = await fetch('/api/v1/users/register', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-          });
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
 
-          const result = await response.json();
+      try {
+        const response = await fetch('/api/v1/users/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
 
-          if (response.ok) {
-            alert('Registration successful! Redirecting to login...');
-            window.location.href = '/login';
-          } else {
-            errorMessage.textContent = result.message || 'Registration failed';
-            errorMessage.style.display = 'block';
-          }
-        } catch (error) {
-          console.error('Error:', error);
-          errorMessage.textContent = 'An error occurred. Please try again.';
+        const result = await response.json();
+
+        if (response.ok) {
+          alert('Registration successful! Redirecting to login...');
+          window.location.href = '/login';
+        } else {
+          errorMessage.textContent = result.message || 'Registration failed';
           errorMessage.style.display = 'block';
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.innerText = 'Sign Up';
-          submitBtn.style.opacity = '1';
         }
-      });
-      // password toggle
-      const togglePassword = document.getElementById("togglePassword");
-      const passwordInput = document.getElementById("password");
+      } catch (error) {
+        console.error('Error:', error);
+        errorMessage.textContent = 'An error occurred. Please try again.';
+        errorMessage.style.display = 'block';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Sign Up';
+        submitBtn.style.opacity = '1';
+      }
+    });
+    // password toggle
+    const togglePassword = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("password");
 
-      togglePassword.addEventListener("click", () => {
-        const isHidden = passwordInput.type === "password";
+    togglePassword.addEventListener("click", () => {
+      const isHidden = passwordInput.type === "password";
 
-        passwordInput.type = isHidden ? "text" : "password";
+      passwordInput.type = isHidden ? "text" : "password";
 
-        togglePassword.classList.toggle("fa-eye");
-        togglePassword.classList.toggle("fa-eye-slash");
-      });
-    </script>
+      togglePassword.classList.toggle("fa-eye");
+      togglePassword.classList.toggle("fa-eye-slash");
+    });
+  </script>
 </body>
 
 </html>
