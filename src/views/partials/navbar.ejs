@@ -1,0 +1,92 @@
+<!-- src/views/partials/navbar.ejs -->
+<nav class="navbar">
+    <div class="navbar-container">
+        <a href="/" class="navbar-logo">CP Sheet</a>
+
+        <ul class="navbar-menu">
+            <li><a href="/" class="navbar-link">Home</a></li>
+            <li><a href="/sheet" class="navbar-link">Sheet</a></li>
+        </ul>
+
+        <div class="navbar-auth">
+            <% if (locals.isAuthenticated) { %>
+                <div class="profile-dropdown">
+                    <button class="profile-btn">
+                        <% if (locals.user && locals.user.avatar) { %>
+                            <img src="<%= locals.user.avatar %>" alt="Profile" class="profile-img" />
+                            <% } else { %>
+                                <div class="profile-icon">
+                                    <%= locals.user ? locals.user.fullName.charAt(0).toUpperCase() : 'U' %>
+                                </div>
+                                <% } %>
+                    </button>
+                    <div class="dropdown-content">
+                        <div class="dropdown-header">
+                            <p class="dropdown-name">
+                                <%= locals.user ? locals.user.fullName : 'User' %>
+                            </p>
+                            <p class="dropdown-email">
+                                <%= locals.user ? locals.user.email : '' %>
+                            </p>
+                        </div>
+                        <hr>
+                        <button id="navLogoutBtn" class="dropdown-item logout-item">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            Logout
+                        </button>
+                    </div>
+                </div>
+                <% } else { %>
+                    <a href="/login" class="btn-nav btn-login">Login</a>
+                    <a href="/signup" class="btn-nav btn-signup">Signup</a>
+                    <% } %>
+        </div>
+    </div>
+</nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Dropdown toggle logic
+        const profileBtn = document.querySelector('.profile-btn');
+        const dropdownContent = document.querySelector('.dropdown-content');
+
+        if (profileBtn && dropdownContent) {
+            profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdownContent.classList.toggle('show');
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!profileBtn.contains(e.target) && !dropdownContent.contains(e.target)) {
+                    dropdownContent.classList.remove('show');
+                }
+            });
+        }
+
+        // Logout logic
+        const logoutBtn = document.getElementById('navLogoutBtn');
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('/api/v1/users/logout', {
+                        method: 'POST'
+                    });
+                    if (response.ok) {
+                        window.location.href = '/';
+                    } else {
+                        alert('Logout failed');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            });
+        }
+    });
+</script>

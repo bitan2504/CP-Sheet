@@ -10,11 +10,14 @@
 </head>
 
 <body>
-  <div class="container welcome-layout">
-    <header class="auth-header">
-      <h1>Join CP Sheet</h1>
-      <p class="welcome-text">Create your account to start tracking your progress.</p>
-    </header>
+  <%- include('partials/navbar') %>
+    <div class="container welcome-layout">
+      <header class="auth-header">
+        <h1>Join CP Sheet</h1>
+        <p class="welcome-text">
+          Create your account to start tracking your progress.
+        </p>
+      </header>
 
     <div class="form-container" style="flex-direction: column; max-width: 450px; margin: 0 auto; width: 100%;">
       <div id="errorMessage" class="error-message"></div>
@@ -34,11 +37,19 @@
           <i class="fa-solid fa-eye toggle-password" id="togglePassword"></i>
         </div>
 
-        <button type="submit" id="submitBtn" style="width: 100%; margin-top: 10px;">Sign Up</button>
-      </form>
-      <p style="margin-top: 25px; color: #888; text-align: center;">
-        Already have an account? <a href="/login" class="auth-link">Login</a>
-      </p>
+          <button type="submit" id="submitBtn" style="width: 100%; margin-top: 10px">
+            Sign Up
+          </button>
+        </form>
+
+        <p style="margin-top: 20px; color: #888; text-align: center">
+          Already have an account? <a href="/login" class="auth-link">Login</a>
+        </p>
+      </div>
+
+      <div style="margin-top: 40px">
+        <a href="/" class="auth-link" style="color: #666; font-size: 0.9rem">&larr; Back to Home</a>
+      </div>
     </div>
 
     <div style="margin-top: 40px;">
