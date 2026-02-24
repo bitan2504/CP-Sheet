@@ -20,21 +20,14 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+const viewAuth = require("./middlewares/viewAuth.middleware");
+
+// View Routes
+app.use(viewAuth); // Automatically populates res.locals.isAuthenticated & res.locals.user
+
 // Home route
 app.get("/", (req, res) => {
-    const token = req.cookies?.accessToken;
-    let isAuthenticated = false;
-
-    if (token) {
-        try {
-            jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-            isAuthenticated = true;
-        } catch (error) {
-            isAuthenticated = false;
-        }
-    }
-
-    res.render("index", { isAuthenticated });
+    res.render("index");
 });
 
 // Sheet route
