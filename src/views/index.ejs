@@ -9,52 +9,19 @@
 </head>
 
 <body>
-    <div class="container welcome-layout">
-        <header>
-            <h1>Welcome to CP Sheet</h1>
-        </header>
-        <p class="welcome-text">Create your own competitive programming sheet!</p>
+    <%- include('partials/navbar') %>
+        <div class="container welcome-layout">
+            <header>
+                <h1>Welcome to CP Sheet</h1>
+            </header>
+            <p class="welcome-text">Create your own competitive programming sheet!</p>
 
-        <div style="display: flex; gap: 15px; margin-top: 20px;">
-            <button onclick="window.location.href='/sheet'" class="btn-welcome">
-                Go to your sheets
-            </button>
-            <% if (isAuthenticated) { %>
-                <button id="logoutBtn" class="btn-welcome" style="border-color: #ff3333; color: #ff3333;">
-                    Logout
+            <div style="display: flex; gap: 15px; margin-top: 20px;">
+                <button onclick="window.location.href='/sheet'" class="btn-welcome">
+                    Go to your sheets
                 </button>
-                <% } else { %>
-                    <button onclick="window.location.href='/login'" class="btn-welcome"
-                        style="border-color: #fff; color: #fff;">
-                        Login
-                    </button>
-                    <button onclick="window.location.href='/signup'" class="btn-welcome"
-                        style="background-color: var(--primary-green); color: #000;">
-                        Signup
-                    </button>
-                    <% } %>
+            </div>
         </div>
-
-        <script>
-            const logoutBtn = document.getElementById('logoutBtn');
-            if (logoutBtn) {
-                logoutBtn.addEventListener('click', async () => {
-                    try {
-                        const response = await fetch('/api/v1/users/logout', {
-                            method: 'POST'
-                        });
-                        if (response.ok) {
-                            window.location.reload();
-                        } else {
-                            alert('Logout failed');
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
-                    }
-                });
-            }
-        </script>
-    </div>
 </body>
 
 </html>

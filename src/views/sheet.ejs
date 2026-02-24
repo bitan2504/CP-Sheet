@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= title %></title>
-    <link rel="stylesheet" href="/css/style.css" />
-  </head>
 
-  <body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    <%= title %>
+  </title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <%- include('partials/navbar') %>
     <div class="container">
       <header>
-        <h2><%= name %></h2>
+        <h2>
+          <%= name %>
+        </h2>
       </header>
 
       <h3>Problems in this sheet:</h3>
@@ -31,30 +37,15 @@
       <h4>Add more problems</h4>
 
       <div class="form-container">
-        <input
-          type="text"
-          name="problem-name"
-          id="problem-name"
-          placeholder="Enter problem name"
-        />
-        <input
-          type="text"
-          name="problem-link"
-          id="problem-link"
-          placeholder="Enter problem link"
-          required
-        />
-        <input
-          type="text"
-          name="problem-tags"
-          id="problem-tags"
-          placeholder="Enter problem tags (comma separated)"
-        />
+        <input type="text" name="problem-name" id="problem-name" placeholder="Enter problem name" />
+        <input type="text" name="problem-link" id="problem-link" placeholder="Enter problem link" required />
+        <input type="text" name="problem-tags" id="problem-tags" placeholder="Enter problem tags (comma separated)" />
 
         <button type="submit" id="submit-btn" class="btn">Add Problem</button>
       </div>
     </div>
 
     <script src="/js/script.js"></script>
-  </body>
+</body>
+
 </html>
