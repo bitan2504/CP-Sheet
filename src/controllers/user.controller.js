@@ -3,7 +3,7 @@ const ApiError = require("../utils/ApiError");
 const User = require("../models/user.model");
 const ApiResponse = require("../utils/ApiResponse");
 
-const generateAccessAndAccessTokens = async (userId) => {
+const generateAccessAndRefreshTokens = async (userId) => {
     try {
         const user = await User.findById(userId);
         const accessToken = user.generateAccessToken();
@@ -89,7 +89,7 @@ const loginUser = asyncHandler(async (req, res) => {
         throw new ApiError(401, "Invalid user credentials");
     }
 
-    const { accessToken, refreshToken } = await generateAccessAndAccessTokens(
+    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
         user._id
     );
 
@@ -200,6 +200,7 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
+    generateAccessAndRefreshTokens,
     registerUser,
     loginUser,
     logoutUser,
