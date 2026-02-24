@@ -1,7 +1,5 @@
 // configuring environment variables
 require("dotenv").config();
-const dns = require("node:dns");
-dns.setDefaultResultOrder("ipv4first");
 const PORT = process.env.PORT || 3000;
 
 // importing dependencies
@@ -12,8 +10,6 @@ const ejs = require("ejs");
 const cookieParser = require("cookie-parser");
 const jwt = require("jsonwebtoken");
 const userRoutes = require("./routes/user.routes");
-const oauthRoutes = require("./routes/oauth.routes");
-const problemRoutes = require("./routes/problem.routes");
 
 // creating and configuring express app
 const app = express();
@@ -24,21 +20,14 @@ app.use(cookieParser());
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+const viewAuth = require("./middlewares/viewAuth.middleware");
+
+// View Routes
+app.use(viewAuth); // Automatically populates res.locals.isAuthenticated & res.locals.user
+
 // Home route
 app.get("/", (req, res) => {
-    const token = req.cookies?.accessToken;
-    let isAuthenticated = false;
-
-    if (token) {
-        try {
-            jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-            isAuthenticated = true;
-        } catch (error) {
-            isAuthenticated = false;
-        }
-    }
-
-    res.render("index", { isAuthenticated });
+    res.render("index");
 });
 
 // Sheet route
@@ -50,18 +39,18 @@ app.get("/sheet", (req, res) => {
 });
 
 app.get("/signup", (req, res) => {
-    res.render("signup", { error: req.query.error });
+    res.render("signup");
 });
 
 app.get("/login", (req, res) => {
-    res.render("login", { error: req.query.error });
+    res.render("login");
 });
 
 const errorMiddleware = require("./middlewares/error.middleware");
 
 // APIs
 app.use("/api/v1/users", userRoutes);
-app.use("/api/v1/oauth", oauthRoutes);
+const problemRoutes = require("./routes/problem.routes");
 app.use("/api/v1/problems", problemRoutes);
 
 // Error Handling Middleware

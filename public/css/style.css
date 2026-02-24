@@ -167,7 +167,7 @@ td {
     white-space: wrap;
 }
 
-.action-tab {
+.action-tab{
     white-space: nowrap;
 }
 
@@ -271,13 +271,13 @@ button:active {
     transform: translateY(1px);
 }
 
-.action-btn {
+.action-btn{
     padding: 5px 10px;
     border: none;
     background-color: transparent;
 }
 
-.delete-btn {
+.delete-btn{
     color: #ff3333;
 }
 
@@ -575,59 +575,4 @@ button:active {
 .logout-item:hover {
     background-color: rgba(255, 51, 51, 0.1);
     color: #ff3333;
-}
-
-/* OAuth Styles */
-.separator {
-    display: flex;
-    align-items: center;
-    text-align: center;
-    margin: 20px 0;
-    width: 100%;
-}
-
-.separator::before,
-.separator::after {
-    content: '';
-    flex: 1;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.separator span {
-    padding: 0 10px;
-    color: #666;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.9rem;
-}
-
-.btn-google {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: 12px 24px;
-    background-color: rgba(255, 255, 255, 0.05);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-    box-sizing: border-box;
-}
-
-.btn-google:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: #4285F4;
-    box-shadow: 0 0 15px rgba(66, 133, 244, 0.2);
-    text-shadow: none;
-}
-
-.google-icon {
-    width: 20px;
-    height: 20px;
 }
