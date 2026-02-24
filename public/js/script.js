@@ -23,7 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const renderProblems = (problems) => {
         if (tableBody) {
+
+            //REMOVE skeleton rows
+            document.querySelectorAll(".skeleton-row").forEach(el => el.remove());
+
             tableBody.innerHTML = "";
+
             problems.forEach(problem => {
                 const newRow = document.createElement("tr");
                 newRow.id = `problem-${problem._id}`;
