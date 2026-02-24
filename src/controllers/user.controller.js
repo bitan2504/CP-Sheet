@@ -200,7 +200,6 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
 });
 
 module.exports = {
-    generateAccessAndAccessTokens,
     registerUser,
     loginUser,
     logoutUser,
