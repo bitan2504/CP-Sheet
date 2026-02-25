@@ -13,7 +13,8 @@
                 <div class="profile-dropdown">
                     <button class="profile-btn">
                         <% if (locals.user && locals.user.avatar) { %>
-                            <img src="<%= locals.user.avatar %>" alt="Profile" class="profile-img" />
+                            <img src="<%= locals.user.avatar %>" alt="Profile" class="profile-img"
+                                referrerpolicy="no-referrer" />
                             <% } else { %>
                                 <div class="profile-icon">
                                     <%= locals.user ? locals.user.fullName.charAt(0).toUpperCase() : 'U' %>
