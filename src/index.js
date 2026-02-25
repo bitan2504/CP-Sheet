@@ -14,6 +14,7 @@ const jwt = require("jsonwebtoken");
 const userRoutes = require("./routes/user.routes");
 const oauthRoutes = require("./routes/oauth.routes");
 const problemRoutes = require("./routes/problem.routes");
+const viewAuth = require("./middlewares/viewAuth.middleware");
 
 // creating and configuring express app
 const app = express();
@@ -21,24 +22,14 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use(cookieParser());
+app.use(viewAuth);
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
 // Home route
 app.get("/", (req, res) => {
-    const token = req.cookies?.accessToken;
-    let isAuthenticated = false;
-
-    if (token) {
-        try {
-            jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-            isAuthenticated = true;
-        } catch (error) {
-            isAuthenticated = false;
-        }
-    }
-
-    res.render("index", { isAuthenticated });
+    res.render("index");
 });
 
 // Sheet route
