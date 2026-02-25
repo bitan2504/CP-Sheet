@@ -641,3 +641,14 @@ button:active {
     background-color: var(--primary-green);
     color: var(--bg-color);
 }
+
+/* LIGHT MODE SKELETON */
+
+html:not([data-theme="dark"]) .skeleton {
+  background: linear-gradient(
+    90deg,
+    #e5e5e5 25%,
+    #f2f2f2 50%,
+    #e5e5e5 75%
+  );
+}
