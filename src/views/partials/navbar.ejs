@@ -9,9 +9,6 @@
         </ul>
 
         <div class="navbar-auth">
-            <button id="themeToggle" class="btn-nav" title="Toggle theme">
-                🌙
-            </button>
             <% if (locals.isAuthenticated) { %>
                 <div class="profile-dropdown">
                     <button class="profile-btn">
@@ -81,10 +78,8 @@
                     const response = await fetch('/api/v1/users/logout', {
                         method: 'POST'
                     });
-                     if (response.ok) {
-                    localStorage.removeItem("cp-sheet-theme");
-
-                    window.location.href = '/';
+                    if (response.ok) {
+                        window.location.href = '/';
                     } else {
                         alert('Logout failed');
                     }
