@@ -1,7 +1,22 @@
 /* Global Styles */
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600&display=swap');
 
+/* THEME VARIABLES  */
+
+/* LIGHT MODE */
 :root {
+    --bg-color: #ffffff;
+    --surface-color: #f6f6f6;
+    --text-color: #111111;
+    --primary-green: #00c853;
+    --secondary-green: #00a844;
+    --accent-hover: #00e676;
+    --border-color: #e0e0e0;
+    --input-bg: #ffffff;
+}
+
+/* DARK MODE  */
+[data-theme="dark"] {
     --bg-color: #000000;
     --surface-color: #0a0a0a;
     --text-color: #0f0;
@@ -575,4 +590,65 @@ button:active {
 .logout-item:hover {
     background-color: rgba(255, 51, 51, 0.1);
     color: #ff3333;
+}
+
+:root .btn-login {
+    color: var(--text-color);
+    border-color: var(--text-color);
+}
+
+:root .btn-login:hover {
+    background-color: var(--text-color);
+    color: var(--bg-color);
+}
+/* ===== LIGHT MODE TABLE TEXT FIX ===== */
+
+:root td {
+    color: var(--text-color);
+}
+
+:root tr:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+:root th {
+    background-color: var(--surface-color);
+}
+
+/* THEME TOGGLE BUTTON  */
+
+#themeToggle {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+    line-height: 1;
+
+    text-transform: none;   
+    letter-spacing: normal;
+
+    border: 2px solid var(--primary-green);
+    background: transparent;
+}
+
+#themeToggle:hover {
+    background-color: var(--primary-green);
+    color: var(--bg-color);
+}
+
+/* LIGHT MODE SKELETON */
+
+html:not([data-theme="dark"]) .skeleton {
+  background: linear-gradient(
+    90deg,
+    #e5e5e5 25%,
+    #f2f2f2 50%,
+    #e5e5e5 75%
+  );
 }
