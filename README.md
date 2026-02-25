@@ -15,7 +15,7 @@ CP Sheet is a competitive programming tracking application built with Express an
 - **Backend**: Node.js, Express.js
 - **Database**: MongoDB, Mongoose
 - **Templating**: EJS
-- **Authentication**: JWT (jsonwebtoken), bcrypt, cookie-parser
+- **Authentication**: JWT, bcrypt, Google OAuth 2.0
 
 ## Getting Started
 
@@ -33,6 +33,9 @@ CP Sheet is a competitive programming tracking application built with Express an
     ACCESS_TOKEN_EXPIRY=1d
     REFRESH_TOKEN_SECRET=your_refresh_token_secret
     REFRESH_TOKEN_EXPIRY=10d
+    GOOGLE_CLIENT_ID=your_google_client_id
+    GOOGLE_CLIENT_SECRET=your_google_client_secret
+    GOOGLE_REDIRECT_URI=http://localhost:3000/api/v1/oauth/callback/google
     ```
 
 	or, Directly copy the `.env.example` file content.
@@ -72,6 +75,17 @@ The following controllers handle user authentication and profile management:
 - `PATCH /update-account`
   - **Description**: Update user account details like full name and email
   - **Controller**: `updateAccountDetails`
+
+### APIs (`/api/v1/oauth`)
+
+The following controllers handle external OAuth integrations:
+
+- `GET /google`
+  - **Description**: Initiates Google OAuth 2.0 consent flow.
+  - **Controller**: `googleLogin`
+- `GET /callback/google`
+  - **Description**: Handles the callback from Google post-consent, processes the tokens, and logs the user in.
+  - **Controller**: `googleCallback`
 
 ## Project Structure
 
