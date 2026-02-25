@@ -1,22 +1,7 @@
 /* Global Styles */
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;600&display=swap');
 
-/* THEME VARIABLES  */
-
-/* LIGHT MODE */
 :root {
-    --bg-color: #ffffff;
-    --surface-color: #f6f6f6;
-    --text-color: #111111;
-    --primary-green: #00c853;
-    --secondary-green: #00a844;
-    --accent-hover: #00e676;
-    --border-color: #e0e0e0;
-    --input-bg: #ffffff;
-}
-
-/* DARK MODE  */
-[data-theme="dark"] {
     --bg-color: #000000;
     --surface-color: #0a0a0a;
     --text-color: #0f0;
@@ -182,7 +167,7 @@ td {
     white-space: wrap;
 }
 
-.action-tab{
+.action-tab {
     white-space: nowrap;
 }
 
@@ -286,13 +271,13 @@ button:active {
     transform: translateY(1px);
 }
 
-.action-btn{
+.action-btn {
     padding: 5px 10px;
     border: none;
     background-color: transparent;
 }
 
-.delete-btn{
+.delete-btn {
     color: #ff3333;
 }
 
@@ -592,63 +577,57 @@ button:active {
     color: #ff3333;
 }
 
-:root .btn-login {
-    color: var(--text-color);
-    border-color: var(--text-color);
+/* OAuth Styles */
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+    width: 100%;
 }
 
-:root .btn-login:hover {
-    background-color: var(--text-color);
-    color: var(--bg-color);
-}
-/* ===== LIGHT MODE TABLE TEXT FIX ===== */
-
-:root td {
-    color: var(--text-color);
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--border-color);
 }
 
-:root tr:hover {
-    background-color: rgba(0, 0, 0, 0.05);
+.separator span {
+    padding: 0 10px;
+    color: #666;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
 }
 
-:root th {
-    background-color: var(--surface-color);
-}
-
-/* THEME TOGGLE BUTTON  */
-
-#themeToggle {
-    width: 42px;
-    height: 42px;
-    padding: 0;
-    border-radius: 15px;
-
+.btn-google {
     display: flex;
     align-items: center;
     justify-content: center;
-
-    font-size: 30px;
-    line-height: 1;
-
-    text-transform: none;   
-    letter-spacing: normal;
-
-    border: 2px solid var(--primary-green);
-    background: transparent;
+    gap: 10px;
+    width: 100%;
+    padding: 12px 24px;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-sizing: border-box;
 }
 
-#themeToggle:hover {
-    background-color: var(--primary-green);
-    color: var(--bg-color);
+.btn-google:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #4285F4;
+    box-shadow: 0 0 15px rgba(66, 133, 244, 0.2);
+    text-shadow: none;
 }
 
-/* LIGHT MODE SKELETON */
-
-html:not([data-theme="dark"]) .skeleton {
-  background: linear-gradient(
-    90deg,
-    #e5e5e5 25%,
-    #f2f2f2 50%,
-    #e5e5e5 75%
-  );
+.google-icon {
+    width: 20px;
+    height: 20px;
 }
