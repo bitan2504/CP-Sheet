@@ -1,4 +1,50 @@
+/* ===== THEME SYSTEM ===== */
+
+const THEME_KEY = "cp-sheet-theme";
+
+function getSystemTheme() {
+    return window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
+}
+
+function applyTheme(theme) {
+    document.documentElement.setAttribute("data-theme", theme);
+}
+
+/* Apply theme immediately (prevents flash) */
+(function initThemeImmediately() {
+    const savedTheme = localStorage.getItem(THEME_KEY);
+    applyTheme(savedTheme || getSystemTheme());
+})();
 document.addEventListener("DOMContentLoaded", () => {
+        /* ===== THEME TOGGLE ===== */
+
+    const toggleBtn = document.getElementById("themeToggle");
+
+    if (toggleBtn) {
+        toggleBtn.addEventListener("click", () => {
+            const current =
+                document.documentElement.getAttribute("data-theme");
+
+            const newTheme = current === "dark" ? "light" : "dark";
+
+            applyTheme(newTheme);
+            localStorage.setItem(THEME_KEY, newTheme);
+
+            // optional icon switch
+            toggleBtn.textContent = newTheme === "dark" ? "☀️" : "🌙";
+        });
+    }
+
+    /* Remove theme on logout */
+    const logoutBtn = document.querySelector(".logout-item");
+
+    if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+            localStorage.removeItem(THEME_KEY);
+        });
+    }
     const tableBody = document.querySelector("#problem-table tbody");
     const submitBtn = document.getElementById("submit-btn");
     let editingProblemId = null;
