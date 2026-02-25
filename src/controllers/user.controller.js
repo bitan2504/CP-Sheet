@@ -1,7 +1,9 @@
 const asyncHandler = require("../utils/asyncHandler");
 const ApiError = require("../utils/ApiError");
 const User = require("../models/user.model");
+const EmailUpdate = require("../models/emailUpdate.model");
 const ApiResponse = require("../utils/ApiResponse");
+const { generateOTP, sendOTPEmail } = require("../utils/mailer");
 
 const generateAccessAndAccessTokens = async (userId) => {
     try {
@@ -199,10 +201,132 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
         );
 });
 
+/**
+description - Request email change, generate OTP and send via email
+route - PUT /api/v1/users/change-email
+*/
+const changeEmail = asyncHandler(async (req, res) => {
+    const { email } = req.body;
+    const userId = req.user._id;
+
+    if (!email) {
+        throw new ApiError(400, "Email is required");
+    }
+
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        throw new ApiError(400, "Invalid email format");
+    }
+
+    // Check if email is already in use by another user
+    const existingUser = await User.findOne({ 
+        email: email.toLowerCase(), 
+        _id: { $ne: userId } 
+    });
+
+    if (existingUser) {
+        throw new ApiError(409, "Email is already in use by another user");
+    }
+
+    // Check if the user already has this email
+    const currentUser = await User.findById(userId);
+    if (currentUser.email === email.toLowerCase()) {
+        throw new ApiError(400, "This is already your current email");
+    }
+
+    // Generate OTP
+    const otp = generateOTP();
+    const expiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
+
+    // Upsert EmailUpdate record (replace existing pending request)
+    await EmailUpdate.findOneAndUpdate(
+        { userId },
+        { 
+            userId, 
+            email: email.toLowerCase(), 
+            otp, 
+            expiry 
+        },
+        { upsert: true, new: true }
+    );
+
+    // Send OTP email
+    try {
+        await sendOTPEmail(email, otp);
+    } catch (error) {
+        // Clean up the EmailUpdate record if email sending fails
+        await EmailUpdate.findOneAndDelete({ userId });
+        throw new ApiError(500, "Failed to send verification email. Please try again.");
+    }
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, { email }, "OTP sent to your email. Please verify within 10 minutes."));
+});
+
+/**
+description - Verify OTP and update user email
+route - PATCH /api/v1/users/verify-email
+*/
+const verifyEmail = asyncHandler(async (req, res) => {
+    const { otp } = req.body;
+    const userId = req.user._id;
+
+    if (!otp) {
+        throw new ApiError(400, "OTP is required");
+    }
+
+    // Find the pending email update request
+    const emailUpdate = await EmailUpdate.findOne({ userId });
+
+    if (!emailUpdate) {
+        throw new ApiError(404, "No pending email change request found. Please request a new OTP.");
+    }
+
+    // Check if OTP is expired
+    if (new Date() > emailUpdate.expiry) {
+        await EmailUpdate.findOneAndDelete({ userId });
+        throw new ApiError(400, "OTP has expired. Please request a new one.");
+    }
+
+    // Verify OTP
+    if (emailUpdate.otp !== otp) {
+        throw new ApiError(400, "Invalid OTP");
+    }
+
+    // Check if email is still available (could have been taken since OTP was sent)
+    const existingUser = await User.findOne({ 
+        email: emailUpdate.email, 
+        _id: { $ne: userId } 
+    });
+
+    if (existingUser) {
+        await EmailUpdate.findOneAndDelete({ userId });
+        throw new ApiError(409, "Email is no longer available. Please try with a different email.");
+    }
+
+    // Update user's email
+    const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { email: emailUpdate.email },
+        { new: true }
+    ).select("-password -refreshToken");
+
+    // Delete the EmailUpdate record
+    await EmailUpdate.findOneAndDelete({ userId });
+
+    return res
+        .status(200)
+        .json(new ApiResponse(200, updatedUser, "Email updated successfully"));
+});
+
 module.exports = {
     registerUser,
     loginUser,
     logoutUser,
     updateAccountDetails,
     changeCurrentPassword,
+    changeEmail,
+    verifyEmail,
 };
