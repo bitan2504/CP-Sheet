@@ -23,7 +23,15 @@ const addProblem = asyncHandler(async (req, res) => {
 });
 
 const getUserProblems = asyncHandler(async (req, res) => {
-    const problems = await Problem.find({ user: req.user._id }).sort({ createdAt: -1 });
+    const { favorites } = req.query;
+
+    let query = { user: req.user._id };
+
+    if (favorites === 'true') {
+        query.isFavourite = true;
+    }
+
+    const problems = await Problem.find(query).sort({ createdAt: -1 });
 
     return res.status(200).json(
         new ApiResponse(200, problems, "User problems fetched successfully")
@@ -65,9 +73,31 @@ const deleteProblem = asyncHandler(async (req, res) => {
     );
 });
 
+const toggleFavourite = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    const problem = await Problem.findOne({ _id: id, user: req.user._id });
+
+    if (!problem) {
+        throw new ApiError(404, "Problem not found or unauthorized");
+    }
+
+    problem.isFavourite = !problem.isFavourite;
+    await problem.save();
+
+    return res.status(200).json(
+        new ApiResponse(
+            200,
+            problem,
+            problem.isFavourite ? "Problem marked as favorite" : "Problem removed from favorites"
+        )
+    );
+});
+
 module.exports = {
     addProblem,
     getUserProblems,
     updateProblem,
     deleteProblem,
+    toggleFavourite,
 };

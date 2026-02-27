@@ -23,6 +23,10 @@ const problemSchema = new mongoose.Schema(
                 trim: true,
             }
         ],
+        isFavourite: {
+            type: Boolean,
+            default: false,
+        }
     },
     {
         timestamps: true,

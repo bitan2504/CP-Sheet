@@ -13,10 +13,26 @@
 <body>
   <%- include('partials/navbar') %>
     <div class="container">
-      <header>
+      <header style="display: flex; justify-content: space-between; align-items: center;">
         <h2>
           <%= name %>
         </h2>
+        <div class="filter-container">
+          <div class="tab-slider-container">
+            <input type="checkbox" id="filter-favorites" class="tab-slider-checkbox" />
+            <div class="tab-slider-bg"></div>
+            <label for="filter-favorites" class="tab-slider-option" id="label-all">All</label>
+            <label for="filter-favorites" class="tab-slider-option option-favorites" id="label-fav">
+              Favorites
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-star">
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+            </label>
+          </div>
+        </div>
       </header>
 
       <h3>Problems in this sheet:</h3>
@@ -30,28 +46,52 @@
           </tr>
         </thead>
         <tbody id="problem-body">
-  <!-- Skeleton rows (shown first) -->
-  <tr class="skeleton-row">
-    <td><div class="skeleton skeleton-text"></div></td>
-    <td><div class="skeleton skeleton-text"></div></td>
-    <td><div class="skeleton skeleton-text"></div></td>
-    <td><div class="skeleton skeleton-btn"></div></td>
-  </tr>
+          <!-- Skeleton rows (shown first) -->
+          <tr class="skeleton-row">
+            <td>
+              <div class="skeleton skeleton-text"></div>
+            </td>
+            <td>
+              <div class="skeleton skeleton-text"></div>
+            </td>
+            <td>
+              <div class="skeleton skeleton-text"></div>
+            </td>
+            <td>
+              <div class="skeleton skeleton-btn"></div>
+            </td>
+          </tr>
 
-  <tr class="skeleton-row">
-    <td><div class="skeleton skeleton-text"></div></td>
-    <td><div class="skeleton skeleton-text"></div></td>
-    <td><div class="skeleton skeleton-text"></div></td>
-    <td><div class="skeleton skeleton-btn"></div></td>
-  </tr>
+          <tr class="skeleton-row">
+            <td>
+              <div class="skeleton skeleton-text"></div>
+            </td>
+            <td>
+              <div class="skeleton skeleton-text"></div>
+            </td>
+            <td>
+              <div class="skeleton skeleton-text"></div>
+            </td>
+            <td>
+              <div class="skeleton skeleton-btn"></div>
+            </td>
+          </tr>
 
-  <tr class="skeleton-row">
-    <td><div class="skeleton skeleton-text"></div></td>
-    <td><div class="skeleton skeleton-text"></div></td>
-    <td><div class="skeleton skeleton-text"></div></td>
-    <td><div class="skeleton skeleton-btn"></div></td>
-  </tr>
-</tbody>
+          <tr class="skeleton-row">
+            <td>
+              <div class="skeleton skeleton-text"></div>
+            </td>
+            <td>
+              <div class="skeleton skeleton-text"></div>
+            </td>
+            <td>
+              <div class="skeleton skeleton-text"></div>
+            </td>
+            <td>
+              <div class="skeleton skeleton-btn"></div>
+            </td>
+          </tr>
+        </tbody>
       </table>
 
       <h4>Add more problems</h4>
