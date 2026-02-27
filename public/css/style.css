@@ -167,7 +167,7 @@ td {
     white-space: wrap;
 }
 
-.action-tab{
+.action-tab {
     white-space: nowrap;
 }
 
@@ -271,13 +271,13 @@ button:active {
     transform: translateY(1px);
 }
 
-.action-btn{
+.action-btn {
     padding: 5px 10px;
     border: none;
     background-color: transparent;
 }
 
-.delete-btn{
+.delete-btn {
     color: #ff3333;
 }
 
@@ -294,16 +294,16 @@ button:active {
 }
 
 .password-group {
-  position: relative;
+    position: relative;
 }
 
 .toggle-password {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #777;
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #777;
 }
 
 /* Responsive Design */
@@ -335,32 +335,35 @@ button:active {
 /* ===== Skeleton Loading ===== */
 
 .skeleton {
-  background: linear-gradient(
-    90deg,
-    #1a1a1a 25%,
-    #2a2a2a 50%,
-    #1a1a1a 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.2s infinite;
-  border-radius: 6px;
+    background: linear-gradient(90deg,
+            #1a1a1a 25%,
+            #2a2a2a 50%,
+            #1a1a1a 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.2s infinite;
+    border-radius: 6px;
 }
 
 .skeleton-text {
-  height: 18px;
-  width: 90%;
-  margin: 6px 0;
+    height: 18px;
+    width: 90%;
+    margin: 6px 0;
 }
 
 .skeleton-btn {
-  height: 30px;
-  width: 70px;
+    height: 30px;
+    width: 70px;
 }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-} 
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
 
 /* Navbar component */
 .navbar {
@@ -575,4 +578,140 @@ button:active {
 .logout-item:hover {
     background-color: rgba(255, 51, 51, 0.1);
     color: #ff3333;
+}
+
+/* Toggle Switch */
+.toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toggle-label {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.gold-text {
+    color: gold;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-switch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--surface-color);
+    border: 2px solid var(--border-color);
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.toggle-switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 2px;
+    bottom: 2px;
+    background-color: var(--text-color);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+.toggle-switch input:checked+.slider {
+    background-color: rgba(255, 215, 0, 0.05);
+    border-color: gold;
+}
+
+.toggle-switch input:checked+.slider:before {
+    transform: translateX(26px);
+    background-color: gold;
+}
+
+/* Tab Slider Switch */
+.tab-slider-container {
+    position: relative;
+    display: inline-flex;
+    background-color: var(--input-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 4px;
+}
+
+.tab-slider-bg {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 120px;
+    height: calc(100% - 8px);
+    background-color: rgba(0, 230, 118, 0.1);
+    border: 1px solid var(--primary-green);
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    z-index: 1;
+}
+
+.tab-slider-option {
+    position: relative;
+    z-index: 2;
+    width: 120px;
+    padding: 8px 0;
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    text-align: center;
+    user-select: none;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.tab-slider-option:hover {
+    color: #aaa;
+}
+
+.tab-slider-option.active {
+    color: var(--primary-green);
+    text-shadow: 0 0 8px rgba(0, 230, 118, 0.4);
+}
+
+.tab-slider-checkbox {
+    display: none;
+}
+
+.tab-slider-checkbox:checked~.tab-slider-bg {
+    transform: translateX(120px);
+    background-color: rgba(255, 215, 0, 0.1);
+    border-color: gold;
+}
+
+/* Specific color override for Favorites when active */
+.tab-slider-checkbox:checked~.option-favorites.active {
+    color: gold;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
 }
